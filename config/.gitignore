@@ -1,0 +1,6 @@
+# Blacklist all config files from git
+/*
+
+# Whitelist this and the sample config
+!.gitignore
+!config-sample.yml

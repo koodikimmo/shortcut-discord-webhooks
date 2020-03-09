@@ -1,0 +1,12 @@
+# Copy this configuration as default.yml, development.yml, production.yml, etc.
+# Config will be chosen based on the NODE_ENV variable, for example:
+# $ export NODE_ENV=production
+# $ node app.js
+
+server:
+  clubhouse-api-endpoint: "clubhouse"
+  port: 33000
+
+discord:
+  discord-webhook: "https://discordapp.com/api/webhooks/XXXXX/YYYYY"
+  
