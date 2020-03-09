@@ -1,4 +1,4 @@
-const discord = require("./discord")
+const reports = require("./reports")
 
 function parseEvent(eventData) {
 	eventData.actions.forEach(action => {
@@ -23,14 +23,7 @@ function parseEvent(eventData) {
 }
 
 function _handleCreateAction(action) {
-    const msg = discord.getMessageBuilder()
-        .setColor("#aabbcc")
-        .setText("Story created")
-        .addField("Name", action.name)
-        .addField("URL", action.app_url)
-        .setTime();
-
-    discord.sendMessage(msg);
+    reports.sendStoryCreatedMsg(action, action.owner_ids || []);
 }
 
 function _handleUpdateAction(action) {
@@ -41,13 +34,28 @@ function _handleUpdateAction(action) {
 		return;
 	}
 
+	_handleStoryChange(action);
+}
+
+function _handleStoryChange(action) {
 	// Get changes in this update
 	const changes = action.changes;
 
 	console.log("Updating a story, changes: ");
 	console.log(changes);
-}
 
+	const ownerChanges = changes.owner_ids;
+	if(ownerChanges == null) {
+		console.log("Currently we are just interested in owner changes, skipping...");
+		return;
+	}
+
+	const addedOwners = ownerChanges.adds;
+	if(addedOwners != null) {
+		reports.sendStoryAssignedMsg(action, addedOwners);
+	}
+
+}
 
 function _handleDeleteAction(action) {
 
