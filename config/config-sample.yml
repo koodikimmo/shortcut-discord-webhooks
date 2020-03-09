@@ -9,4 +9,4 @@ server:
 
 discord:
   discord-webhook: "https://discordapp.com/api/webhooks/XXXXX/YYYYY"
-  
+  sender-name: "Clubhouse"
